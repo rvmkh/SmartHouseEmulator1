@@ -1,6 +1,135 @@
 "use strict";
 
-/** Draw Buttons**/
+/** Draw TVset **/
+var tvset1 = new TVset();
+
+var table = document.createElement("table");
+table.id = "TVset1";
+table.style.backgroundColor = "lightgray";
+table.align = "justify";
+table.innerHTML = "<b>&nbsp&nbsp&nbsp&nbspTVset1&nbsp&nbsp&nbsp&nbsp</b>";
+table.style.width = "500px";
+table.style.height = "250px";
+table.style.border = "thick solid #0000FF";
+document.body.appendChild(table);
+
+var parentElem = document.getElementById(table.id);
+var row = document.createElement("row");
+row.id = "myrow";
+parentElem.appendChild(row);
+
+parentElem = document.getElementById(row.id);
+var cell = document.createElement("cell");
+cell.id = "mycell";
+parentElem.appendChild(cell);
+
+parentElem = document.getElementById(cell.id);
+var tvonoff = document.createElement("input");
+tvonoff.id = "tvonoff";
+tvonoff.type = "submit";
+tvonoff.value = "On / Off";
+parentElem.appendChild(tvonoff);
+
+parentElem = document.getElementById(cell.id);
+var sleepbut = document.createElement("input");
+sleepbut.id = "mysleep";
+sleepbut.type = "submit";
+sleepbut.value = "Sleep after 3 sec";
+parentElem.appendChild(sleepbut);
+
+parentElem = document.getElementById(cell.id);
+var chnlistbut = document.createElement("input");
+chnlistbut.id = "chnlist";
+chnlistbut.type = "submit";
+chnlistbut.value = "Channel List";
+parentElem.appendChild(chnlistbut);
+
+document.getElementById("tvonoff").onclick = function() {
+  if ( tvset1._state === true ) {
+     tvset1.off();
+     table.style.backgroundColor = "lightgray";
+  }
+  else if ( tvset1._state === false ) {
+     tvset1.on();
+     table.style.backgroundColor = "lightgreen";
+  }
+}
+
+document.getElementById("mysleep").onclick = function() {
+  if ( tvset1._state === false ) {
+    alert("Please, turn On TVset first ...");
+  }
+  else {
+    tvset1.sleep();
+  }
+}
+
+document.getElementById("chnlist").onclick = function() {
+  if ( tvset1._state === false ) {
+    alert("Please, turn On TVset first ...");
+  }
+  else {
+    var chnlist = tvset1.getchnlist();
+    for ( var i=0; i<chnlist.length; i++ ) {
+      console.log(i + "\t" + chnlist[i]);
+      var tvcell = document.getElementById("mycell");
+      tvcell.innerHTML = tvcell.innerHTML + "<br><br>" + i + "&nbsp" + chnlist[i];
+    }
+  }
+}
+
+/** Draw Condey **/
+
+var divcondey = document.createElement("div");
+divcondey.id = "divcondey";
+divcondey.align = "justify";
+divcondey.innerHTML = "<b>&nbsp&nbsp&nbsp&nbspConditioner1&nbsp&nbsp&nbsp&nbsp</b>";
+divcondey.style.width = "490px";
+divcondey.style.height = "40px";
+divcondey.style.border = "thick solid #0000FF";
+divcondey.style.backgroundColor = "lightgray";
+document.body.appendChild(divcondey);
+
+parentElem = document.getElementById("divcondey");
+var condeyonoff = document.createElement("input");
+condeyonoff.id = "condeyonoff";
+condeyonoff.type = "submit";
+condeyonoff.value = "On / Off";
+parentElem.appendChild(condeyonoff);
+
+parentElem = document.getElementById("divcondey");
+var mytemper = document.createElement("input");
+mytemper.id = "mytemper";
+mytemper.type = "submit";
+mytemper.value = "Set temperature";
+parentElem.appendChild(mytemper);
+
+var condey1 = new Condey();
+document.getElementById("condeyonoff").onclick = function() {
+  if ( condey1._state === true ) {
+     condey1.off();
+     divcondey.style.backgroundColor = "lightgray";
+  }
+  else if ( condey1._state === false ) {
+     condey1.on();
+     divcondey.style.backgroundColor = "lightgreen";
+  }
+}
+
+document.getElementById("mytemper").onclick = function() {
+  if ( condey1._state === false ) {
+    alert("Please, turn On Conditioner first ...");
+  }
+  else {
+    var t = prompt("Enter the Temperature: ","-273 *C");
+    var condey2 = new Condey(t);
+    var backtemper = condey2.settemper();
+    divcondey.innerHTML = divcondey.innerHTML + backtemper;
+  }
+}
+
+/** Draw New Dev Buttons**/
+
 var divbuts = document.createElement("div");                                    // DIV for Add/Delete butts
 divbuts.id = "divbuts";
 divbuts.style.width = "300px";
@@ -41,7 +170,7 @@ function drawcommondiv() {
 }
 drawcommondiv();
 
-/**OnClick Buttons**/
+/**New Devs OnClick Buttons**/
 var devname;
 var newdev = new NewDevice(devname);                                            // New exemplar of Class NewDevice
 
@@ -89,25 +218,6 @@ document.getElementById("clearbut").onclick = function() {                      
   }
   drawcommondiv();                                                              // Restore empty common-div
 }
-
-/** TVset **/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
