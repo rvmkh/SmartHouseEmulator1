@@ -60,7 +60,15 @@ document.getElementById("mysleep").onclick = function() {
     alert("Please, turn On TVset first ...");
   }
   else {
-    tvset1.sleep();
+    if( tvset1.sleep() === true ){
+      setTimeout(
+        function(){
+          console.log("\nTV slept after 3 sec...\n");
+          document.getElementById("TVset1").style.backgroundColor = "lightgray";
+        },
+        3000
+      );
+    }
   }
 }
 

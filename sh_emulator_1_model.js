@@ -42,13 +42,7 @@ function TVset() {
 TVset.prototype = Object.create(PowerSwitch.prototype);
 TVset.prototype.constructor = TVset;
 TVset.prototype.sleep = function() {
-    setTimeout(
-      function(){
-        console.log("\nTV slept after 3 sec...\n");
-        document.getElementById("TVset1").style.backgroundColor = "lightgray";
-      },
-      3000
-    );
+    return true;
 }
 TVset.prototype.getchnlist = function() {
   this._chlist[0] = this._chnl1;
